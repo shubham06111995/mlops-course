@@ -1,4 +1,7 @@
-venv/ __pycache__/ *.pycs
-/model.pkl
-mlruns/ mlflow.db
-mlartifacts
+venv/
+__pycache__/
+*.pyc
+model.pkl
+mlruns/
+mlflow.db
+mlartifacts/
