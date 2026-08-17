@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animal-classifier-deployment
+spec:
+  replicas: 2                    # Run 2 copies of our container
+  selector:
+    matchLabels:
+      app: animal-classifier
+  template:
+    metadata:
+      labels:
+        app: animal-classifier
+    spec:
+      containers:
+        - name: animal-classifier
+          image: animal-classifier:latest
+          imagePullPolicy: Never    # Use the local image we loaded, don't try to download it
+          command: ["sh", "-c", "python train.py && python predict.py && tail -f /dev/null"]
+          # tail -f /dev/null keeps the container alive after predict.py finishes,
+          # so Kubernetes sees it as a healthy, running service (not one that exits)
